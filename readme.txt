@@ -2,7 +2,7 @@ INSTALL Python 3.11.2
 https://www.python.org/downloads/
 
 
-pip3 install flask flask_cors werkzeug pyzbar requests bytesbufio
+pip3 install flask flask_cors werkzeug pyzbar requests bytesbufio pytesseract
 
 ติดตั้งเพิ่ม
 pip3 install flask
