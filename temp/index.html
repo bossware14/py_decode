@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Slip</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://preview.tabler.io/dist/libs/dropzone/dist/dropzone.css?1732191775" rel="stylesheet" />
+    <link href="https://preview.tabler.io/dist/css/tabler.min.css?1726507346" rel="stylesheet" />
+    <link href="https://preview.tabler.io/dist/css/tabler-flags.min.css?1726507346" rel="stylesheet" />
+    <link href="https://preview.tabler.io/dist/css/tabler-payments.min.css?1726507346" rel="stylesheet" />
+    <link href="https://preview.tabler.io/dist/css/tabler-vendors.min.css?1726507346" rel="stylesheet" />
+    <link href="https://preview.tabler.io/dist/css/demo.min.css?1726507346" rel="stylesheet" />
+</head>
+<body>
+    <div class="page container py-4">
+        <div class="row row-cards">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">รูปภาพ SLIP โอนเงิน</h3>
+                        <div class="fallback">
+                            <input onchange="sendImages()" type="file" id="myfile" name="myfile" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <pre id="status"></pre>
+            </div>
+        </div>
+    </div>
+    <script>
+        function sendImages() {
+            document.getElementById('status').innerHTML = 'Loading';
+            var fileSelect = document.getElementById('myfile');
+            var files = fileSelect.files;
+            var file = files[0];
+            const formdata = new FormData();
+            formdata.append("file", file, file.name);
+            const requestOptions = {
+                method: "POST",
+                body: formdata,
+                redirect: "follow"
+            };
+            fetch("/", requestOptions)
+                .then((response) => response.text())
+                .then((result) => {
+                    var json = JSON.parse(result);
+                    document.getElementById('status').innerHTML = result;
+                })
+                .catch((error) => {
+                    console.error(error)
+                });
+        }
+    </script>
+</body>
+</html>
